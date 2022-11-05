@@ -45,9 +45,6 @@ class Bus(models.Model):
     bus_capacity = models.IntegerField()
     bus_driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.bus_id
-
     def get_location(self):
         return self.bus_lat, self.bus_long
     
@@ -59,6 +56,9 @@ class Bus(models.Model):
     
     def get_capacity(self):
         return self.bus_capacity
+    
+    def describe(self):
+        return self.bus_plate + ' ' + self.bus_route.route_name + ' ' + self.bus_driver.driver_name + ' ' + self.bus_occupation + ' ' + self.bus_capacity
 
 class Reservation(models.Model):
     reservation_passenger = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -75,4 +75,7 @@ class Reservation(models.Model):
 
     def get_time(self):
         return self.reservation_time
+
+    def describe(self):
+        return self.reservation_passenger + ' ' + self.reservation_bus + ' ' + self.reservation_start + ' ' + self.reservation_end + ' ' + self.reservation_time
     
