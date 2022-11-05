@@ -1,0 +1,25 @@
+body, html {
+	margin: 0;
+	padding: 0;
+}
+
+section#filters {
+	background-color: cadetblue;
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+section#filters > select {
+	border-radius: 10px;
+}
+
+section#filters > input#date {
+	border-radius: 10px;
+}
+
+section#routestops {
+	background-color: aquamarine;
+}
