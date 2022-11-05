@@ -9,10 +9,18 @@ class Stop(models.Model):
     stop_name = models.CharField(max_length=100)
     stop_lat = models.DecimalField(max_digits=9, decimal_places=7)
     stop_lon = models.DecimalField(max_digits=9, decimal_places=7)
-     
+    stop_status = models.BooleanField(default=True)
+    
     def __str__(self):
         return self.stop_name
 
+class RouteStop(models.Model):
+    route = models.ForeignKey(Route, on_delete=models.CASCADE)
+    stop = models.ForeignKey(Stop, on_delete=models.CASCADE)
+    stop_order = models.IntegerField()
+   
+    def __str__(self):
+        return self.route.route_name + ' ' + self.stop.stop_name
 
 class Passenger(models.Model):
     class Meta:
@@ -51,4 +59,20 @@ class Bus(models.Model):
     
     def get_capacity(self):
         return self.bus_capacity
+
+class Reservation(models.Model):
+    reservation_passenger = models.ForeignKey(Student, on_delete=models.CASCADE)
+    reservation_bus = models.ForeignKey(Bus, on_delete=models.CASCADE)
+    reservation_start = models.ForeignKey(RouteStop, on_delete=models.CASCADE)
+    reservation_end = models.ForeignKey(RouteStop, on_delete=models.CASCADE, related_name='reservation_end')
+    reservation_time = models.TimeField()
+
+    def __str__(self):
+        return self.reservation_id
+
+    def get_date(self):
+        return self.reservation_date
+
+    def get_time(self):
+        return self.reservation_time
     
