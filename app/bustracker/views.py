@@ -16,6 +16,6 @@ def index(request, route=""):
 	context = {'date': date.today().isoformat(),
 				'selected_route':"Selecionar rota",
 				'routes': ['Selecionar rota', 'Anglo', 'Capão do Leão'],
-				'routestops':RouteStop.objects
+				'routestops':RouteStop.objects.all()
 				}
 	return render(request, 'index.html', context)
