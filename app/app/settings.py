@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-+i826*&7gm@_h2oqb7rkf!co*(p+60egd0v#)wr2&m4!_-)wc+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'bustracker.apps.BustrackerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
