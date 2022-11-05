@@ -22,14 +22,16 @@ class RouteStop(models.Model):
     stop_order = models.IntegerField()
 
 class Passenger(models.Model):
-    passenger_id = models.CharField(max_length=10)
-    passenger_rank = models.IntegerField()
     passenger_lat = models.DecimalField(max_digits=9, decimal_places=6)
     passenger_lon = models.DecimalField(max_digits=9, decimal_places=6)
     passenger_route = models.ForeignKey(Route, on_delete=models.CASCADE)
 
+class Student(Passenger):
+    student_id = models.IntegerField(primary_key=True)
+    student_rank = models.IntegerField(primary_key=True, max_length=10)
+
 class Driver(Passenger):
-    driver_id = models.CharField(max_length=10)
+    driver_id = models.CharField(primary_key=True, max_length=10)
     driver_name = models.CharField(max_length=50)
 
 class Bus(models.Model):
