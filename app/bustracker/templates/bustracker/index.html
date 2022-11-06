@@ -39,7 +39,7 @@
 							<th scope="row">{{ b.bus_plate }}</th>
 							<td>{{ b.bus_route}}</td>
 							<td>{{ b.bus_capacity}}</td>
-							<td>{{ b.bus_occupation}}</td>
+							<td>{{ b.get_occupation }}</td>
 						</tr>
 						{% endfor %}
 				</tbody>

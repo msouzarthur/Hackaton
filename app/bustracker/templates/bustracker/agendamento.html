@@ -53,7 +53,16 @@
 				  	</div>
 				{% endfor %}
 			</section>
-			{{ fig.show }}
+			<br>
+			<section id="map" class=" image d-flex flex-column justify-content-center align-items-center" >
+				<button class="btn btn-secondary">
+					<div class="card p-4">
+						<div class=" image d-flex flex-column justify-content-center align-items-center"> 
+							{{ fig|safe }}
+						</div>
+					</div>
+				</button>
+			</section>
 		</main>
 		<footer>
 

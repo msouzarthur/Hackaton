@@ -33,12 +33,8 @@ class Passenger(models.Model):
     passenger_route = models.ForeignKey(Route, on_delete=models.CASCADE, null=True)
 
 class Student(Passenger):
-	#student_name = models.CharField(max_length=60)
-	#student_code = models.CharField(max_length=12)
 	student_rank = models.IntegerField()
 
-	#def __str__(self):
-	#	return self.student_code
 
 class Driver(Passenger):
 	driver_name = models.CharField(max_length=50)
@@ -66,7 +62,7 @@ class Bus(models.Model):
 		return self.bus_speed
     
 	def get_occupation(self):
-		return self.bus_occupation
+		return self.bus_capacity - self.bus_occupation
     
 	def get_capacity(self):
 		return self.bus_capacity

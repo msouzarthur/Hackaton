@@ -9,16 +9,17 @@ import plotly.express as px
 
 df = pd.DataFrame(list(Stop.objects.all().values('stop_name','stop_lat','stop_lon')))
 fig = px.scatter_mapbox(df, lat=df.columns[1], lon=df.columns[2], hover_name=df.columns[0],
-                        color_discrete_sequence=["red"], zoom=13, height=300, size_max=30)
+                        color_discrete_sequence=["red"], zoom=13, height=600, size_max=30)
+
 df = pd.DataFrame(list(Bus.objects.all().values('bus_plate','bus_lat','bus_long','bus_speed')))
 fig2 = px.scatter_mapbox(df, lat=df.columns[1], lon=df.columns[2], hover_name=df.columns[0],
-                        color_discrete_sequence=["blue"], zoom=13, height=300, size_max=30)
+                        color_discrete_sequence=["blue"], zoom=13, height=600, size_max=30)
 
 fig.add_trace(fig2.data[0])
 fig.update_layout(mapbox_style="open-street-map")
 fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
-
+fig = fig.to_html(full_html=False, default_height=600, default_width=600)
 def index(request):
 	bus = Bus.objects.all()
 	context = {
