@@ -81,9 +81,6 @@ class Reservation(models.Model):
     reservation_end = models.ForeignKey(RouteStop, on_delete=models.CASCADE, related_name='reservation_end')
     reservation_time = models.TimeField()
 
-    def __str__(self):
-        return self.reservation_id
-
     def get_date(self):
         return self.reservation_date
 

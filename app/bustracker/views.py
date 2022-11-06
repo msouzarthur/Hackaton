@@ -53,4 +53,9 @@ def reservar(request, id:int):
 	return redirect('agendamento')
 
 def estatisticas(request):
-	return render(request, 'estatisticas.html')
+	context = {
+		'routes': Route.objects.all().filter(route_est_time),
+		'stops': Stop.objects.all(),
+		'reservations': Reservation.objects.all()
+	}
+	return render(request, 'estatisticas.html',context)
