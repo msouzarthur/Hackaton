@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Bus, Route, Stop,  Driver, Student, RouteStop
+from .models import Bus, Route, Stop,  Driver, Student, RouteStop, Reservation
 
 # Register your models here.
 admin.site.register(Bus)
@@ -8,5 +8,6 @@ admin.site.register(Stop)
 admin.site.register(Driver)
 admin.site.register(Student)
 admin.site.register(RouteStop)
+admin.site.register(Reservation)
 
 
