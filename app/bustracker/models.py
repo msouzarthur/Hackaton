@@ -78,4 +78,3 @@ class Reservation(models.Model):
 
     def describe(self):
         return self.reservation_passenger + ' ' + self.reservation_bus + ' ' + self.reservation_start + ' ' + self.reservation_end + ' ' + self.reservation_time
-    
