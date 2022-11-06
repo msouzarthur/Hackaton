@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import loader
 from django.http import HttpResponse
 
 from datetime import date
-from .models import RouteStop, Stop, Route, Bus
+from .models import RouteStop, Stop, Route, Reservation, Bus
 
 def index(request):
 	bus = Bus.objects.all()
@@ -35,8 +35,12 @@ def agendamento(request, route=""):
 			})
 	return render(request, 'agendamento.html', context)
 
-def registrar(request):
-	return render(request, 'registrar.html')
-
 def entrar(request):
 	return render(request, 'entrar.html')
+
+def reservar(request, id:int):
+	#Reservation.objects.create(reservation_passenger=1, reservation_bus=1, )
+	return redirect('agendamento')
+
+def estatisticas(request):
+	return render(request, 'estatisticas.html')
