@@ -11,6 +11,7 @@
 	</head>
 	<body>
 		<header>
+			
 		</header>
 		<main>
 			<section id="filters">
@@ -30,9 +31,15 @@
 			</section>
 			<section id="routestops">
 				{% for routestop in routestops %}
-					<div id="routestop">
-						<h3>routestop.stop.stop_name</h3>
-					</div>
+					<div class="card">
+						<div class="card-body">
+					  		<h5 class="card-title">{{ routestop.stop_order }} - {{ routestop.stop.stop_name.capitalize }}</h5>
+					  		<!--<p class="card-text"></p>-->
+							<!--<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+					  		<a href="reservar/{{ routestop.id }}" class="btn btn-primary">Reservar</a>
+							<!--<a href="cancelar_reserva/{{ reservation.id }}" class="btn btn-primary">Cancelar</a>-->
+						</div>
+				  	</div>
 				{% endfor %}
 			</section>
 			

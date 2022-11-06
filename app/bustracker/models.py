@@ -1,9 +1,12 @@
 from django.db import models
 
 class Route(models.Model):
-    route_name = models.CharField(max_length=100)
-    route_est_time = models.TimeField()
-    route_time = models.TimeField()
+	route_name = models.CharField(max_length=100)
+	route_est_time = models.TimeField()
+	route_time = models.TimeField()
+
+	def __str__(self):
+		return self.route_name
 
 class Stop(models.Model):
     stop_name = models.CharField(max_length=100)
@@ -30,35 +33,46 @@ class Passenger(models.Model):
     passenger_route = models.ForeignKey(Route, on_delete=models.CASCADE, null=True)
 
 class Student(Passenger):
-    student_rank = models.IntegerField()
+	#student_name = models.CharField(max_length=60)
+	#student_code = models.CharField(max_length=12)
+	student_rank = models.IntegerField()
+
+	#def __str__(self):
+	#	return self.student_code
 
 class Driver(Passenger):
-    driver_name = models.CharField(max_length=50)
+	driver_name = models.CharField(max_length=50)
+
+	def __str__(self):
+		return self.driver_name
 
 class Bus(models.Model):
-    bus_plate = models.CharField(max_length=10)
-    bus_lat = models.DecimalField(max_digits=9, decimal_places=7)
-    bus_long = models.DecimalField(max_digits=9, decimal_places=7)
-    bus_speed = models.DecimalField(max_digits=9, decimal_places=6)
-    bus_route = models.ForeignKey(Route, on_delete=models.CASCADE)
-    bus_occupation = models.IntegerField()
-    bus_capacity = models.IntegerField()
-    bus_driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
+	bus_plate = models.CharField(max_length=10)
+	bus_lat = models.DecimalField(max_digits=9, decimal_places=7)
+	bus_long = models.DecimalField(max_digits=9, decimal_places=7)
+	bus_speed = models.DecimalField(max_digits=9, decimal_places=6)
+	bus_route = models.ForeignKey(Route, on_delete=models.CASCADE)
+	bus_occupation = models.IntegerField()
+	bus_capacity = models.IntegerField()
+	bus_driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
 
-    def get_location(self):
-        return self.bus_lat, self.bus_long
+	def __str__(self):
+		return self.bus_plate
+
+	def get_location(self):
+		return self.bus_lat, self.bus_long
     
-    def get_speed(self):
-        return self.bus_speed
+	def get_speed(self):
+		return self.bus_speed
     
-    def get_occupation(self):
-        return self.bus_occupation
+	def get_occupation(self):
+		return self.bus_occupation
     
-    def get_capacity(self):
-        return self.bus_capacity
+	def get_capacity(self):
+		return self.bus_capacity
     
-    def describe(self):
-        return self.bus_plate + ' ' + self.bus_route.route_name + ' ' + self.bus_driver.driver_name + ' ' + self.bus_occupation + ' ' + self.bus_capacity
+	def describe(self):
+		return self.bus_plate + ' ' + self.bus_route.route_name + ' ' + self.bus_driver.driver_name + ' ' + self.bus_occupation + ' ' + self.bus_capacity
 
 class Reservation(models.Model):
     reservation_passenger = models.ForeignKey(Student, on_delete=models.CASCADE)
