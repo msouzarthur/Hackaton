@@ -19,3 +19,6 @@ def index(request, route=""):
 				'routestops':RouteStop.objects.all()
 				}
 	return render(request, 'index.html', context)
+
+def onibus(request):
+	return HttpResponse("Entrei no aluninho onibus")
