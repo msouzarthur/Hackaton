@@ -1,1 +1,5 @@
 **/__pycache__
+*/__pycache__
+./app/app/bustracker/__pycache__/admin.cpython-39.pyc
+./app/bustracker/__pycache__/urls.cpython-39.pyc
+./app/bustracker/__pycache__/views.cpython-39.pyc

@@ -1,9 +1,12 @@
 from django.db import models
 
 class Route(models.Model):
-    route_name = models.CharField(max_length=100)
-    route_est_time = models.TimeField()
-    route_time = models.TimeField()
+	route_name = models.CharField(max_length=100)
+	route_est_time = models.TimeField()
+	route_time = models.TimeField()
+
+	def __str__(self):
+		return self.route_name
 
 class Stop(models.Model):
     stop_name = models.CharField(max_length=100)
@@ -30,7 +33,7 @@ class Passenger(models.Model):
     passenger_route = models.ForeignKey(Route, on_delete=models.CASCADE, null=True)
 
 class Student(Passenger):
-    student_rank = models.IntegerField()
+	student_rank = models.IntegerField()
 
 class Driver(Passenger):
     driver_name = models.CharField(max_length=50)
@@ -78,4 +81,3 @@ class Reservation(models.Model):
 
     def describe(self):
         return self.reservation_passenger + ' ' + self.reservation_bus + ' ' + self.reservation_start + ' ' + self.reservation_end + ' ' + self.reservation_time
-    
