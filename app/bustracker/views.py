@@ -3,11 +3,14 @@ from django.template import loader
 from django.http import HttpResponse
 
 from datetime import date
-from .models import RouteStop, Stop, Route
+from .models import RouteStop, Stop, Route, Bus
 
 def index(request):
-	#return render()
-	return HttpResponse('hello')
+	bus = Bus.objects.all()
+	context = {
+		'bus': bus
+	}
+	return render(request, 'index.html', context)
 
 def motorista(request):
 	return render(request, 'motorista.html')
@@ -37,6 +40,3 @@ def registrar(request):
 
 def entrar(request):
 	return render(request, 'entrar.html')
-
-def onibus(request):
-	return HttpResponse("Entrei no aluninho onibus")
