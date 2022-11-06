@@ -1,16 +1,29 @@
 from django.shortcuts import render, redirect
 from django.template import loader
-from django.http import HttpResponse
+import random
 
 from datetime import date
-from .models import RouteStop, Stop, Route, Reservation
+from .models import RouteStop, Stop, Route, Reservation, Bus, Driver
 
 def index(request):
-	#return render()
-	return HttpResponse('hello')
+	bus = Bus.objects.all()
+	context = {
+		'bus': bus
+	}
+	return render(request, 'index.html', context)
 
 def motorista(request):
-	return render(request, 'motorista.html')
+	#random number between 0 and 5
+	r = random.randint(0, 4)
+	drivers_name = [ _driver.driver_name for _driver in Driver.objects.all()]
+	img = ['https://i.imgur.com/L4pefCl.jpg','https://i.imgur.com/ySlOeIp.png','https://i.imgur.com/yJ6uAk8.png','https://i.imgur.com/m7tP7WU.png', 'https://i.imgur.com/EVPPwnW.png']
+	id_num = [10525, 10526, 10527, 10528, 10529]
+	context = {
+		'driver_name': drivers_name[r],
+		'id_num': id_num[r],
+		'perfil': img[r],
+	}
+	return render(request, 'motorista.html', context)
 
 def agendamento(request, route=""):
 	routes = [ _route.route_name for _route in Route.objects.all() ]
