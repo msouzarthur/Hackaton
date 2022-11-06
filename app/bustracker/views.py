@@ -1,9 +1,23 @@
 from django.shortcuts import render, redirect
 from django.template import loader
 import random
-
+from django.db.models import Max
 from datetime import date
 from .models import RouteStop, Stop, Route, Reservation, Bus, Driver
+import pandas as pd
+import plotly.express as px
+
+df = pd.DataFrame(list(Stop.objects.all().values('stop_name','stop_lat','stop_lon')))
+fig = px.scatter_mapbox(df, lat=df.columns[1], lon=df.columns[2], hover_name=df.columns[0],
+                        color_discrete_sequence=["red"], zoom=13, height=300, size_max=30)
+df = pd.DataFrame(list(Bus.objects.all().values('bus_plate','bus_lat','bus_long','bus_speed')))
+fig2 = px.scatter_mapbox(df, lat=df.columns[1], lon=df.columns[2], hover_name=df.columns[0],
+                        color_discrete_sequence=["blue"], zoom=13, height=300, size_max=30)
+
+fig.add_trace(fig2.data[0])
+fig.update_layout(mapbox_style="open-street-map")
+fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+
 
 def index(request):
 	bus = Bus.objects.all()
@@ -37,13 +51,15 @@ def agendamento(request, route=""):
 	if request.method == "POST":
 		context.update({'selected_route':request.POST.get('route'),
 					'date':request.POST.get('date'),
-					'routestops':RouteStop.objects.all().filter(route__route_name=request.POST.get('route'))
+					'routestops':RouteStop.objects.all().filter(route__route_name=request.POST.get('route')),
+					'fig': fig
 				})
 		return render(request, 'agendamento.html', context)
 
 	context.update({'date': date.today().isoformat(),
 				'selected_route':"Selecionar rota",
-				'routestops':RouteStop.objects.all()
+				'routestops':RouteStop.objects.all(),
+				'fig': fig
 			})
 	return render(request, 'agendamento.html', context)
 
@@ -55,9 +71,4 @@ def reservar(request, id:int):
 	return redirect('agendamento')
 
 def estatisticas(request):
-	context = {
-		'routes': Route.objects.all().filter(route_est_time),
-		'stops': Stop.objects.all(),
-		'reservations': Reservation.objects.all()
-	}
-	return render(request, 'estatisticas.html',context)
+	return render(request, 'estatisticas.html')
