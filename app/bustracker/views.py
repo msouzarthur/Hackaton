@@ -19,7 +19,7 @@ def motorista(request):
 	img = ['https://i.imgur.com/L4pefCl.jpg','https://i.imgur.com/ySlOeIp.png','https://i.imgur.com/yJ6uAk8.png','https://i.imgur.com/m7tP7WU.png', 'https://i.imgur.com/EVPPwnW.png']
 	id_num = [10525, 10526, 10527, 10528, 10529]
 	context = {
-		'driver_name': drivers_name[0],
+		'driver_name': drivers_name[r],
 		'id_num': id_num[r],
 		'perfil': img[r],
 	}
